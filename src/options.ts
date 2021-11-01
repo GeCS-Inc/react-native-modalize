@@ -13,6 +13,7 @@ import {
   StyleProp,
   ModalProps,
 } from 'react-native';
+import { PanGestureHandlerStateChangeEvent } from 'react-native-gesture-handler';
 
 export type TOpen = 'default' | 'top';
 export type TClose = 'default' | 'alwaysOpen';
@@ -313,6 +314,8 @@ export interface IProps<ListItem = any> {
    * Callback used when you press the overlay.
    */
   onLayout?(nativeEvent: { layout: LayoutRectangle }): void;
+
+  onDragEnd?(event: PanGestureHandlerStateChangeEvent): void;
 }
 
 export interface IHandles {

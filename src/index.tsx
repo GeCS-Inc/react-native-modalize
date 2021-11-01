@@ -134,6 +134,7 @@ const ModalizeBase = (
     onPositionChange,
     onOverlayPress,
     onLayout,
+    onDragEnd,
   }: IProps,
   ref: React.Ref<React.ReactNode>,
 ): JSX.Element | null => {
@@ -604,14 +605,16 @@ const ModalizeBase = (
     }
   };
 
-  const handleComponent = ({ nativeEvent }: PanGestureHandlerStateChangeEvent): void => {
+  const handleComponent = (event: PanGestureHandlerStateChangeEvent): void => {
     // If we drag from the HeaderComponent/FooterComponent/FloatingComponent we allow the translation animation
+    const { nativeEvent } = event;
     if (nativeEvent.oldState === State.BEGAN) {
       componentTranslateY.setValue(1);
       beginScrollY.setValue(0);
     }
 
     handleChildren({ nativeEvent }, 'component');
+    onDragEnd?.(event);
   };
 
   const handleOverlay = ({ nativeEvent }: TapGestureHandlerStateChangeEvent): void => {
